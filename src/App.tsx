@@ -1,17 +1,16 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './App.css';
-import ReactDataTable from './example/ReactDataTable/ReactDataTable';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import TaskPlanner from './example/forms/TaskPlanner';
 
 function App() {
-  // Create a QueryClient instance
   const queryClient = new QueryClient();
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className='App'>
-        <ReactDataTable />
-      </div>
-    </QueryClientProvider>
+    <div className='container p-5'>
+      <QueryClientProvider client={queryClient}>
+        <TaskPlanner />
+      </QueryClientProvider>
+    </div>
   );
 }
 

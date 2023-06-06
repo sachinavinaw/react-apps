@@ -28,7 +28,7 @@ function ReactDataTable() {
   // call to the hook
   const data: TApiResponse = useFetchData(`${FAKE_API}/todos`);
   // Create a QueryClient instance
-  const queryClient = new QueryClient();
+
   const queryKey = 'myData';
 
   const fetchAPIData = async (): Promise<ToDo> => {
@@ -37,17 +37,6 @@ function ReactDataTable() {
     return json;
   };
   // Use the useQuery hook
-  const { data: apiData, isLoading, isError, error } = useQuery<ToDo>(queryKey, fetchAPIData);
-  if (apiData) {
-    console.log(apiData);
-  }
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    console.log(error);
-  }
 
   // print the output
   // if (!data.loading) console.log(data);
