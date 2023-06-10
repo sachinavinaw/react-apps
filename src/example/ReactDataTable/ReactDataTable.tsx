@@ -1,58 +1,29 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable from '../../common/DataTable/DataTale';
 import columns from './columns';
-import { useFetchData } from './hooks/useFetchData';
-import { TApiResponse, ToDo } from './ItemTypes';
+import { ToDo } from './ItemTypes';
 import { FAKE_API } from '../Settings';
-import axios from 'axios';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
-
-const dummyData = () => {
-  const items = [];
-  for (let i = 0; i < 500; i++) {
-    items.push({
-      id: i,
-      name: `Item ${i}`,
-      price: 100,
-      quantity: 1,
-    });
-  }
-  return items;
-};
+import { useMutation } from 'react-query';
 
 function ReactDataTable() {
   const [selectedRows, setSelectedRows] = useState<ToDo[]>([]);
-  const [tableData, setTableData] = useState<ToDo[]>([]);
-  const memoizedColumns = useMemo(() => columns, []);
+  const [tableData, setTableData] = useState([]);
 
-  // call to the hook
-  const data: TApiResponse = useFetchData(`${FAKE_API}/todos`);
-  // Create a QueryClient instance
+  const { mutate, isLoading, data } = useMutation(async () => {
+    const response = await fetch(`${FAKE_API}/todos`);
+    return response.json();
+  });
 
-  const queryKey = 'myData';
-
-  const fetchAPIData = async (): Promise<ToDo> => {
-    const apiResponse = await fetch(`${FAKE_API}/todos`);
-    const json = await apiResponse.json();
-    return json;
-  };
-  // Use the useQuery hook
-
-  // print the output
-  // if (!data.loading) console.log(data);
+  useEffect(() => {
+    mutate();
+  }, [mutate]);
 
   return (
     <>
       <label>This is a basic React Datatable!!</label>
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>
-        <DataTable
-          data={data.data || []}
-          columns={memoizedColumns}
-          selectedRows={setSelectedRows}
-          showNavigation
-          checkbox
-        />
+        <DataTable data={data} columns={columns} showNavigation checkbox />
       </div>
       <pre>{JSON.stringify(selectedRows)}</pre>
     </>

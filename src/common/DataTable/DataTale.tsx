@@ -1,5 +1,12 @@
-import React, { useState, HTMLAttributes, HTMLProps, useEffect } from 'react';
-import { getCoreRowModel, useReactTable, flexRender, getPaginationRowModel, Pagination } from '@tanstack/react-table';
+import React, { useState, useEffect } from 'react';
+import {
+  getCoreRowModel,
+  useReactTable,
+  flexRender,
+  getPaginationRowModel,
+  SortingState,
+  getSortedRowModel,
+} from '@tanstack/react-table';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Table, THead, TBody, Wrapper } from './Styles/TableElements';
 import useCheckboxes from './hooks/useCheckboxes';
@@ -13,19 +20,23 @@ type ReactTableProps<T extends object> = {
 };
 
 const DataTable = <T extends object>({ data, columns, checkbox, showNavigation, selectedRows }: ReactTableProps<T>) => {
+  const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const cols: ColumnDef<T>[] = useCheckboxes({ checkbox: (checkbox ??= false), columns });
 
   const table = useReactTable({
-    data,
+    data: data || [],
     columns: cols,
     state: {
+      sorting,
       rowSelection,
     },
     enableRowSelection: true,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
   });
 
   useEffect(() => {
@@ -45,12 +56,25 @@ const DataTable = <T extends object>({ data, columns, checkbox, showNavigation, 
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className='px-6 py-4 text-sm font-medium text-gray-900'
+                    className={header.column.getIsSorted() ? 'desc' : 'asc'}
                     style={{
                       width: header.column.columnDef.size,
                     }}
                   >
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    {header.isPlaceholder ? null : (
+                      <div
+                        {...{
+                          className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {{
+                          asc: ' 🔼',
+                          desc: ' 🔽',
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </div>
+                    )}
                   </th>
                 ))}
               </tr>

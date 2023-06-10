@@ -2,7 +2,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   border: 1px solid #ccc;
   display: flex;
-  height: 200px;
+  height: 350px;
   overflow: auto;
   width: auto;
   trtd: (first-child) {
