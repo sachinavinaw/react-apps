@@ -10,6 +10,7 @@ import {
 import type { ColumnDef } from '@tanstack/react-table';
 import { Table, THead, TBody, Wrapper } from './Styles/TableElements';
 import useCheckboxes from './hooks/useCheckboxes';
+import './Styles/table.css';
 
 type ReactTableProps<T extends object> = {
   data: T[];
