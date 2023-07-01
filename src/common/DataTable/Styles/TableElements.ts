@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Colors from '../../global/Color';
 export const Wrapper = styled.div`
   border: 1px solid #ccc;
   display: flex;
@@ -20,7 +21,7 @@ export const THead = styled.thead`
   position: sticky;
   top: -1px;
   tr th {
-    background: blue;
+    background: ${Colors.Blue};
     border: 1px solid #ccc;
     color: #fff;
     padding: 10px 15px;

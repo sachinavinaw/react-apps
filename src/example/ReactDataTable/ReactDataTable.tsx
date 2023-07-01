@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DataTable from '../../common/DataTable/DataTale';
 import columns from './columns';
 import { ToDo } from './ItemTypes';
@@ -14,14 +14,14 @@ function ReactDataTable() {
     return response.json();
   });
 
-  useEffect(() => {
+  const handleButtonClick = () => {
     mutate();
-  }, [mutate]);
+  };
 
   return (
     <>
       <label>This is a basic React Datatable!!</label>
-
+      {/* <button onClick={handleButtonClick}>Load Data</button> */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>
         <DataTable data={data} columns={columns} showNavigation checkbox />
       </div>
