@@ -11,6 +11,10 @@ export type ToDo = {
   userId: number;
 };
 
+export type ExtToDo = ToDo & {
+  onBlur: () => void;
+};
+
 export type TApiResponse = {
   status: Number;
   statusText: String;

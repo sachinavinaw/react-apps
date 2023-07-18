@@ -50,8 +50,8 @@ const DataTable = <T extends object>({ data, columns, checkbox, showNavigation, 
   return (
     <>
       <Wrapper>
-        <Table className='min-w-full text-center'>
-          <THead className='border-b bg-gray-50'>
+        <Table>
+          <THead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -83,15 +83,9 @@ const DataTable = <T extends object>({ data, columns, checkbox, showNavigation, 
           </THead>
           <TBody>
             {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className='border-b" bg-white'
-                style={{ background: row.getIsSelected() ? '#BCC6CC' : 'inherit' }}
-              >
+              <tr key={row.id} style={{ background: row.getIsSelected() ? '#BCC6CC' : 'inherit' }}>
                 {row.getVisibleCells().map((cell) => (
-                  <td className='whitespace-nowrap px-6 py-4 text-sm font-light text-gray-900' key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
+                  <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
                 ))}
               </tr>
             ))}

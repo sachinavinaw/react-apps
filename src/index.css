@@ -246,37 +246,6 @@ code {
   margin-bottom: 1rem;
 }
 
-.bd-content > .table {
-  max-width: 100%;
-  margin-bottom: 1.5rem;
-  font-size: 0.875rem;
-}
-
-@media (max-width: 991.98px) {
-  .bd-content > .table {
-    display: block;
-    overflow-x: auto;
-  }
-
-  .bd-content > .table.table-bordered {
-    border: 0;
-  }
-}
-
-.bd-content > .table th:first-child,
-.bd-content > .table td:first-child {
-  padding-left: 0;
-}
-
-.bd-content > .table th:not(:last-child),
-.bd-content > .table td:not(:last-child) {
-  padding-right: 1.5rem;
-}
-
-.bd-content > .table td:first-child > code {
-  white-space: nowrap;
-}
-
 .bd-title {
   font-size: calc(1.425rem + 2.1vw);
 }

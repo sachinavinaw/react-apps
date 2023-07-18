@@ -24,7 +24,7 @@ export const THead = styled.thead`
     background: ${Colors.Blue};
     border: 1px solid #ccc;
     color: #fff;
-    padding: 10px 15px;
+    padding: 5px 10px;
   }
 
   th input[type='checkbox'] {
@@ -37,7 +37,7 @@ export const TBody = styled.tbody`
   overflow: auto;
   tr td {
     border: 1px solid #ccc;
-    padding: 10px 15px;
+    padding: 5px 10px;
   }
 
   td input[type='checkbox'] {

@@ -11,8 +11,8 @@ export const StyledNavbar = styled.nav`
   ul{
     margin-left: 10px;
     display: flex;
-    list-style:none
-    margin:0 auto;
+    list-style:none;
+    // margin:0 auto;
     padding-top: 15px;
   }
 
