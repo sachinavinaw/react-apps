@@ -9,6 +9,7 @@ import Blogs from './example/navchange/Blogs';
 import Layout from './common/layout/Layout';
 import NoPage from './common/layout/NoPage';
 import ReactDataTable from './example/ReactDataTable/ReactDataTable';
+import ExReducer from './example/reducer/ExReducer';
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
             <Route index element={<Home />} />
             <Route path='home' element={<Home />} />
             <Route path='blogs' element={<Blogs />} />
+            <Route path='reducer' element={<ExReducer />} />
             <Route path='react-datatable' element={<ReactDataTable />} />
             <Route path='*' element={<NoPage />} />
           </Routes>

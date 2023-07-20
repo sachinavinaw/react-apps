@@ -7,6 +7,7 @@ const navigation = [
   { name: 'Blogs', href: '/blogs' },
   { name: 'About', href: '/about' },
   { name: 'Datatable', href: '/react-datatable' },
+  { name: 'Reducer', href: '/reducer' },
 ];
 
 const Navbar = () => {
