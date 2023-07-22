@@ -2,13 +2,9 @@ import styled from 'styled-components';
 import Colors from '../../global/Color';
 export const Wrapper = styled.div`
   border: 1px solid #ccc;
-  display: flex;
   height: 350px;
   overflow: auto;
   width: auto;
-  trtd: (first-child) {
-    border: 0;
-  }
 `;
 export const Table = styled.table`
   border: 1px solid #ccc;

@@ -13,6 +13,7 @@ export type ToDo = {
 
 export type ExtToDo = ToDo & {
   onBlur: () => void;
+  onClick: () => void;
 };
 
 export type TApiResponse = {

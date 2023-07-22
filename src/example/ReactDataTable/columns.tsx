@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { ExtToDo } from './ItemTypes';
 import Span from '../../common/DataTable/components/UIComponents/Span';
-import TextArea from '../../common/DataTable/components/UIComponents/TextArea';
+import TextArea from './TextArea';
 
 const columns: ColumnDef<ExtToDo>[] = [
   {
@@ -24,14 +24,7 @@ const columns: ColumnDef<ExtToDo>[] = [
     accessorKey: 'title',
     header: 'Title',
     size: 180,
-    // cell: (row) => row.renderValue(),
-    cell: ({ row }: { row: any }) => (
-      <TextArea
-        defaultValue={row.original.title}
-        onChange={(e) => (row.original.title = e.target.value)}
-        onBlur={row.original.onBlur(row.original.title)}
-      />
-    ),
+    cell: (row) => row.renderValue(),
   },
   {
     accessorFn: (row) => row.completed,
@@ -39,6 +32,17 @@ const columns: ColumnDef<ExtToDo>[] = [
     header: 'Completed',
     size: 120,
     cell: (row) => <Span text={row.renderValue() ? 'Completed' : 'pending'} />,
+  },
+  {
+    id: 'edit',
+    header: 'Details',
+    size: 180,
+    cell: (row) => (
+      <TextArea defaultValue={row.row.original.title} onChange={(value) => (row.row.original.title = value)} />
+    ),
+    meta: {
+      type: 'text',
+    },
   },
 ];
 

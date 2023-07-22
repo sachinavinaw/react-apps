@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   getCoreRowModel,
   useReactTable,
@@ -23,6 +23,11 @@ type ReactTableProps<T extends object> = {
 const DataTable = <T extends object>({ data, columns, checkbox, showNavigation, selectedRows }: ReactTableProps<T>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  // Ref for the container div to get access to the DOM element
+  const tableRef = useRef<HTMLDivElement>(null);
+  // State to hold the scroll position
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
+
   const cols: ColumnDef<T>[] = useCheckboxes({ checkbox: (checkbox ??= false), columns });
 
   const table = useReactTable({
@@ -47,9 +52,38 @@ const DataTable = <T extends object>({ data, columns, checkbox, showNavigation, 
     }
   }, [rowSelection]);
 
+  // Example: Scroll to a specific position after the component mounts
+  useEffect(() => {
+    const savedScrollPosition = localStorage.getItem('scrollPosition');
+    if (savedScrollPosition) {
+      scrollToPosition(parseInt(savedScrollPosition));
+    }
+    // scrollToPosition(200); // Replace 200 with the desired scrollTop value
+  }, []);
+  // Function to scroll the table to a specific scrollTop position
+  const scrollToPosition = (scrollTop: number) => {
+    if (tableRef.current) {
+      tableRef.current.scrollTop = scrollTop;
+    }
+  };
+
+  // Effect to save the scroll position when it changes
+  useEffect(() => {
+    if (tableRef.current) {
+      // Save the scroll position to local storage
+      localStorage.setItem('scrollPosition', String(scrollPosition));
+    }
+  }, [scrollPosition]);
+
+  // Event handler to update the scroll position when scrolling occurs
+  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop } = event.currentTarget;
+    setScrollPosition(scrollTop);
+  };
+
   return (
     <>
-      <Wrapper>
+      <Wrapper ref={tableRef} onScroll={handleScroll}>
         <Table>
           <THead>
             {table.getHeaderGroups().map((headerGroup) => (
