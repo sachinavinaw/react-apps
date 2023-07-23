@@ -6,6 +6,7 @@ const navigation = [
   { name: 'Home', href: '/home' },
   { name: 'Blogs', href: '/blogs' },
   { name: 'About', href: '/about' },
+  { name: 'Forms', href: '/forms' },
   { name: 'Datatable', href: '/react-datatable' },
   { name: 'Reducer', href: '/reducer' },
 ];
