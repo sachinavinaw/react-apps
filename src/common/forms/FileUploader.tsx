@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { HintText, StyledP, StyledPContainer, UploadButton } from './styles/FormsLayout';
+import { Container, HintText, StyledP, StyledPContainer, UploadButton } from './styles/FormsLayout';
 import { Button } from '../layout/styles/Common';
 type FileUploaderProps = {
   allowedFormat?: string;
@@ -33,22 +33,27 @@ function FileUploader({ allowedFormat, setSelectedFile }: FileUploaderProps) {
 
   return (
     <div>
-      <input
-        accept={allowedFormat}
-        type='file'
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-      <UploadButton onClick={handleFileBrowse} data-testid='upload-file'>
-        Select File
-      </UploadButton>
-      {allowedFormat !== '*' && (
-        <HintText className={error ? 'error' : ''}>Please select file with '{allowedFormat}' format only.</HintText>
-      )}
+      <Container>
+        <input
+          accept={allowedFormat}
+          type='file'
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
+        <UploadButton onClick={handleFileBrowse} data-testid='upload-file'>
+          Select File
+        </UploadButton>
+        {allowedFormat !== '*' && (
+          <HintText className={error ? 'error' : ''}>Please select file with '{allowedFormat}' format only.</HintText>
+        )}
+      </Container>
       {selectedFileName !== '' && (
         <StyledPContainer className={error ? 'error' : ''} data-testid='selected-file'>
-          <StyledP>{selectedFileName}</StyledP>
+          <StyledP>
+            <span>File Selcted: </span>
+            {selectedFileName}
+          </StyledP>
         </StyledPContainer>
       )}
       {!error && selectedFileName !== '' && (
