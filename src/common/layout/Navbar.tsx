@@ -9,6 +9,7 @@ const navigation = [
   { name: 'Forms', href: '/forms' },
   { name: 'Datatable', href: '/react-datatable' },
   { name: 'Reducer', href: '/reducer' },
+  { name: 'Example', href: '/counter-component' },
 ];
 
 const Navbar = () => {
