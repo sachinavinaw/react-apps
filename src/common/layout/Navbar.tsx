@@ -10,6 +10,7 @@ const navigation = [
   { name: 'Datatable', href: '/react-datatable' },
   { name: 'Reducer', href: '/reducer' },
   { name: 'Example', href: '/counter-component' },
+  { name: 'Redux', href: '/counter-component-redux' },
 ];
 
 const Navbar = () => {

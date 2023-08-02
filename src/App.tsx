@@ -12,6 +12,7 @@ import ReactDataTable from './example/ReactDataTable/ReactDataTable';
 import ExReducer from './example/reducer/ExReducer';
 import Forms from './example/navchange/Forms';
 import CounterComponent from './example/reducer/CounterComponent';
+import { Counter } from './example/redux/Counter';
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
@@ -27,6 +28,7 @@ const App: React.FC = () => {
             <Route path='reducer' element={<ExReducer />} />
             <Route path='react-datatable' element={<ReactDataTable />} />
             <Route path='counter-component' element={<CounterComponent />} />
+            <Route path='counter-component-redux' element={<Counter />} />
             <Route path='*' element={<NoPage />} />
           </Routes>
         </Layout>
