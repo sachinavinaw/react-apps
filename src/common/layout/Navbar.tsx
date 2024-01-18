@@ -11,6 +11,7 @@ const navigation = [
   { name: 'Reducer', href: '/reducer' },
   { name: 'Example', href: '/counter-component' },
   { name: 'Redux', href: '/counter-component-redux' },
+  { name: 'ListView', href: '/listview' },
 ];
 
 const Navbar = () => {
