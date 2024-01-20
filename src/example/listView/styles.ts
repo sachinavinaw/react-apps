@@ -16,3 +16,16 @@ export const ListItem = styled.li`
   list-style: none;
   border: 1px solid #ddd;
 `;
+export const Item = styled.div`
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+`;
+
+export const Loader = styled.p`
+  font-size: 14px;
+  text-align: center;
+  background: aliceblue;
+  padding: 15px 0px;
+  font-weight: 600;
+  font-style: italic;
+`;
