@@ -15,6 +15,7 @@ import CounterComponent from './example/reducer/CounterComponent';
 import { Counter } from './example/redux/Counter';
 import ListView from './example/listView/ListView';
 import InfiniteScrollableListView from './example/infinitescroll/InfiniteScrollableListView';
+import JapaneseCalendar from './example/JapaneseCalendar';
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
@@ -33,6 +34,7 @@ const App: React.FC = () => {
             <Route path='counter-component-redux' element={<Counter />} />
             <Route path='listview' element={<ListView />} />
             <Route path='infinite-scroll' element={<InfiniteScrollableListView />} />
+            <Route path='ja-calendar' element={<JapaneseCalendar />} />
             <Route path='*' element={<NoPage />} />
           </Routes>
         </Layout>

@@ -13,6 +13,7 @@ const navigation = [
   { name: 'Redux', href: '/counter-component-redux' },
   { name: 'ListView', href: '/listview' },
   { name: 'Infinite Scroll', href: '/infinite-scroll' },
+  { name: 'Ja-Calendar', href: '/ja-calendar' },
 ];
 
 const Navbar = () => {
