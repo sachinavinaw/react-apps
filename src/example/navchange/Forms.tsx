@@ -13,6 +13,9 @@ import FileUploader from '../../common/forms/FileUploader';
 import { Button } from '../../common/layout/styles/Common';
 import { FileUploadContainer } from '../forms/styles/FormsLayout';
 import DatePicker from '../../common/forms/DatePicker';
+import CustomDatePicker from '../../common/DatePicker/CustomDatePicker';
+import TextInputWithSuggestion from '../../common/forms/TextInputWithSuggestion';
+import generateDummyNumbersForDate from '../dummy/generateDummyNumbersForDate';
 
 type FormInput = {
   email: string;
@@ -33,7 +36,7 @@ function Forms() {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState('');
 
-  const { register, handleSubmit, formState, getValues, control } = useForm<FormSchema>({
+  const { register, handleSubmit, getValues } = useForm<FormSchema>({
     resolver: zodResolver(schema),
     mode: 'onBlur',
   });
@@ -125,8 +128,39 @@ function Forms() {
         {selectedFile}
       </div>
 
-      <div className='jumbotron'>
-        <pre>{formData}</pre>
+      <div>
+        <br />
+        <div>
+          <h3>Custom Date Picker</h3>
+          <CustomDatePicker />
+        </div>
+        <div className='jumbotron'>
+          <pre>{formData}</pre>
+        </div>
+      </div>
+
+      <div>
+        <br />
+        <div className='row'>
+          <TextInputWithSuggestion
+            id='year'
+            suggestion={generateDummyNumbersForDate(99, '年')}
+            width={80}
+            maxLength={2}
+          />
+          <TextInputWithSuggestion
+            id='month'
+            suggestion={generateDummyNumbersForDate(12, '月')}
+            width={80}
+            maxLength={2}
+          />
+          <TextInputWithSuggestion
+            id='day'
+            suggestion={generateDummyNumbersForDate(31, '日')}
+            width={80}
+            maxLength={2}
+          />
+        </div>
       </div>
     </>
   );
