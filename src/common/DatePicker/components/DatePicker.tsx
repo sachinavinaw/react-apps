@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, useState } from 'react';
 import styled from 'styled-components';
 import { Color } from '../../../example/JapaneseCalendar/constants/Colors';
+import { Reign } from '../types';
 
 type DatePickerProps<T> = {
   name: string;
@@ -15,6 +16,8 @@ function DatePicker<T>({ name, id, label, maxLength, data }: DatePickerProps<T>)
   const handleChange = (val: string) => {
     console.log(val);
   };
+
+  console.log('data', data);
 
   return (
     <div key={id}>

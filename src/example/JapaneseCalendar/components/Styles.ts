@@ -46,6 +46,14 @@ export const TextInput = styled.input<{ width?: string; error?: boolean; disable
         border: ${`solid 1px ${Color.Red}`};
       }
     `}
+  ${({ disabled }) =>
+    disabled &&
+    css`
+    &:disabled{
+      background-color: #f0f0f0; 
+      color: #999; 
+      cursor: not-allowed; 
+    `}
 `;
 export const ErrorMessage = styled.span`
   color: ${Color.Red};

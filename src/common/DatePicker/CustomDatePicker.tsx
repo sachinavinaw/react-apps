@@ -2,7 +2,6 @@ import { Era, eraOptions } from '../../example/JapaneseCalendar/constants/Calend
 import DatePicker from './components/DatePicker';
 import styled from 'styled-components';
 import { Color } from '../../example/JapaneseCalendar/constants/Colors';
-import setCalendarByEra from './helper/setCalendarByEra';
 import { useState } from 'react';
 import EraDetails from './types';
 import getEraDetails from './helper/getEraDetails';
@@ -17,13 +16,12 @@ function CustomDatePicker() {
   const [data, setData] = useState<EraDetails[]>();
 
   const handleCalendarClick = (era: Era) => {
-    // const calendar = setCalendarByEra(era);
-    // console.log(calendar);
     const eraDetails = getEraDetails(era);
     console.log(eraDetails);
     setData(eraDetails);
   };
 
+  console.log('CustomDatePicker');
   return (
     <JapaneseDate>
       <Select onChange={(e) => handleCalendarClick(e.target.value as Era)}>

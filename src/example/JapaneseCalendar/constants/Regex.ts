@@ -12,8 +12,6 @@ const REGEX = {
   NUMBERS_OR_EMPTY: /^\d*$/g,
   VALID_MONTH_OR_EMPTY: /^(?!0$)([1-9]|1[0-2])?$/,
   VALID_DAY_OR_EMPTY: /^(?:(?:[1-9]|[1-2][\d]|3[0-1])|\d)?$/,
-  //  VALID_MONTH_OR_EMPTY: /^(0?[1-9]|[1-2][0-2])?$/,
-  // VALID_DAY_OR_EMPTY: /^(0?[1-9]|[1-2][0-9]|3[0-1])$/,
 };
 
 export default REGEX;

@@ -1,9 +1,11 @@
-import { Controller, UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 import styled from 'styled-components';
-import { eraOptions } from './constants/Calendar';
+import { Era, eraOptions } from './constants/Calendar';
 import HelpButton from './components/HelpButton';
 import REGEX from './constants/Regex';
-import { DropDown, ErrorMessage, FormLabel, TextInput } from './components/Styles';
+import { DropDown, ErrorMessage, FormLabel } from './components/Styles';
+import { useState } from 'react';
+import DateFieldInput from './components/DateFieldInput';
 
 type JapaneseDateCalendarProps = {
   id: string;
@@ -15,13 +17,10 @@ type JapaneseDateCalendarProps = {
   onHelpClick?: () => void;
 };
 
-const validationRule: RegExp = REGEX.NOT_NUMBERS;
-const maxLength = 2;
-
 const calendarElements = [
-  { name: 'birthDate.year', id: 'year', label: '年', width: '50px', maxLength: 2 },
-  { name: 'birthDate.month', id: 'month', label: '月', width: '50px', maxLength: 2 },
-  { name: 'birthDate.day', id: 'day', label: '日', width: '50px', maxLength: 2 },
+  { name: 'birthDate.year', id: 'year', label: '年', width: '50px', maxLength: 2, validationRule: REGEX.NOT_NUMBERS },
+  { name: 'birthDate.month', id: 'month', label: '月', width: '50px', maxLength: 2, validationRule: REGEX.NOT_NUMBERS },
+  { name: 'birthDate.day', id: 'day', label: '日', width: '50px', maxLength: 2, validationRule: REGEX.NOT_NUMBERS },
 ];
 
 export default function JapaneseDateCalendar({
@@ -35,30 +34,15 @@ export default function JapaneseDateCalendar({
 }: Readonly<JapaneseDateCalendarProps>) {
   const {
     control,
-    setValue,
     register,
+    setValue,
+    clearErrors,
     formState: { errors },
   } = form;
 
-  // Extract error message and ref for birthDate field
+  const [showDefault, setShowDefault] = useState(true);
+
   const errorObject: any = errors;
-
-  function handleChange(value: string): string {
-    const newValue = validationRule ? value.replace(validationRule, '') : value;
-    return newValue.slice(0, maxLength);
-  }
-
-  const handleEraChange = (value: string): string => {
-    if (value === '') {
-      setValue('birthDate', {
-        era: value,
-        year: '',
-        month: '',
-        day: '',
-      });
-    }
-    return value;
-  };
 
   const showErrorMessage = (): string => {
     const birthDateErrors = errorObject?.birthDate;
@@ -71,6 +55,17 @@ export default function JapaneseDateCalendar({
 
     return '';
   };
+
+  const handleEraChange = (era: Era) => {
+    ['year', 'month', 'day'].forEach((field) => {
+      const fieldName = `birthDate.${field}`;
+      setValue(fieldName, '');
+      clearErrors(fieldName);
+    });
+
+    setShowDefault(!era);
+  };
+
   return (
     <Calendar>
       <LabelContainer>
@@ -78,11 +73,11 @@ export default function JapaneseDateCalendar({
         {showHelp && <HelpButton onClick={onHelpClick} />}
       </LabelContainer>
 
-      <div id='calendar' className={isDisabled ? 'disabled' : ''}>
+      <div id='calendar'>
         <DropDown
           id={id}
           {...register('birthDate.era', {
-            onChange: (e) => handleEraChange(e.target.value),
+            onChange: (e) => handleEraChange(e.target.value as Era),
           })}
         >
           {eraOptions.map((option) => (
@@ -94,31 +89,21 @@ export default function JapaneseDateCalendar({
 
         <div>
           {calendarElements.map((element) => {
-            const hasError = (errorObject?.birthDate && errorObject?.birthDate[element.id]) || false;
+            const hasError = (errorObject?.birthDate && errorObject?.birthDate[element.id]) ?? false;
+            const { name, label, maxLength, validationRule } = element;
             return (
-              <div key={element.name}>
-                <Controller
-                  name={element.name}
-                  control={control}
-                  defaultValue=''
-                  render={({ field: { value, onChange } }) => (
-                    <TextInput
-                      id={element.id}
-                      type='text'
-                      maxLength={element.maxLength}
-                      width={element.width}
-                      disabled={isDisabled}
-                      value={value}
-                      onChange={(e) => onChange(handleChange(e.target.value))}
-                      error={hasError}
-                    />
-                  )}
-                />
-
-                <FormLabel htmlFor='year'>{element.label}</FormLabel>
-              </div>
+              <DateFieldInput
+                control={control}
+                id={name}
+                label={label}
+                maxLength={maxLength}
+                validationRule={validationRule}
+                hasError={hasError}
+                isDisabled={showDefault}
+              />
             );
           })}
+
           <div style={{ display: 'block', marginLeft: '90px' }}>
             <ErrorMessage>{showErrorMessage()}</ErrorMessage>
           </div>

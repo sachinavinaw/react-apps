@@ -1,6 +1,6 @@
 import { Era } from '../../example/JapaneseCalendar/constants/Calendar';
 
-type Reign = {
+export type Reign = {
   min: number;
   max?: number;
 };

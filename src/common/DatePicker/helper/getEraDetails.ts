@@ -8,7 +8,7 @@ const JaCalendar: EraDetails[] = [
     endDate: '1989/07/01',
     reign: {
       min: 1,
-      max: 64,
+      max: 63,
     },
   },
   {
